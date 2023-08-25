@@ -1,1 +1,56 @@
-<p>register works!</p>
+<div style="display: grid; place-items: center; width: 100%; height: 100vh">
+  <div>
+    <div style="display: grid; place-items: center">
+      <h2>
+        Olá,<span style="text-transform: capitalize"> {{ userName }} </span>
+      </h2>
+      <h3>Complete seu cadastro</h3>
+    </div>
+    <div>
+      <form [formGroup]="employeeForm">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Nome Completo:</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email:</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>CPF:</mat-label>
+            <input matInput formControlName="cpf" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Telefone:</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Conhecimentos</mat-label>
+            <mat-select formControlName="knowledgmentIds" multiple>
+              <mat-option
+                *ngFor="let topping of knowledgments"
+                [value]="topping.id"
+                >{{ topping.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <button (click)="createEmployee()" mat-raised-button color="primary">
+            Registrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
