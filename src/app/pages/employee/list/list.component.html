@@ -1,5 +1,43 @@
 <div style="display: grid; width: 100%; place-items: center; height: 100vh">
   <div style="width: 70%">
+    <div style="display: flex">
+      <mat-form-field style="margin-bottom: 0; width: 100%">
+        <mat-label>Buscar</mat-label>
+        <input matInput [(ngModel)]="searchName" (keydown.enter)="search()" />
+        <button
+          matSuffix
+          mat-icon-button
+          aria-label="Search"
+          (click)="search()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Por:</mat-label>
+        <mat-select [(ngModel)]="searchField">
+          <mat-option
+            *ngFor="let field of searchableFields"
+            [value]="field.value"
+          >
+            {{ field.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div style="margin-bottom: 12px">
+      <mat-chip-listbox
+        aria-label="Fish selection"
+        (change)="setKnowledgment($event)"
+      >
+        <mat-chip-option
+          *ngFor="let knowledgment of knowledgments"
+          [value]="knowledgment.id"
+          >{{ knowledgment.name }}</mat-chip-option
+        >
+      </mat-chip-listbox>
+    </div>
+
     <table mat-table [dataSource]="employees" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -18,12 +56,16 @@
 
       <ng-container matColumnDef="cpf">
         <th mat-header-cell *matHeaderCellDef>CPF</th>
-        <td mat-cell *matCellDef="let element">{{ element.cpf }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.cpf | mask : "000.000.000-00" }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef>Telefone</th>
-        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.phone | mask : "(00) 00000-0000" }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="status">

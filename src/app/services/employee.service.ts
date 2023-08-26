@@ -13,8 +13,10 @@ export class EmployeeService {
     return this.http.post('http://localhost:3000/employees/create', employee);
   }
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>('http://localhost:3000/employees');
+  getEmployees(name: any, field: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(
+      `http://localhost:3000/employees?${field}=${name}`
+    );
   }
 
   getEmployee(id: number): Observable<Employee> {
