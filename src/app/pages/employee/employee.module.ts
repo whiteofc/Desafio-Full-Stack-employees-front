@@ -3,7 +3,7 @@ import { EmployeeDetailsComponent } from './details/details.component';
 import { EmployeeListComponent } from './list/list.component';
 import { EmployeeRegisterComponent } from './register/register.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -48,6 +48,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
