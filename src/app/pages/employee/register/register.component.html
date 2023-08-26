@@ -1,5 +1,5 @@
 <div style="display: grid; place-items: center; width: 100%; height: 100vh">
-  <div>
+  <div *ngIf="!registred">
     <div style="display: grid; place-items: center">
       <h2>
         Olá,<span style="text-transform: capitalize"> {{ userName }} </span>
@@ -16,27 +16,52 @@
             justify-content: center;
           "
         >
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" style="margin-bottom: 0">
             <mat-label>Nome Completo:</mat-label>
             <input matInput formControlName="name" />
+            <mat-hint
+              *ngIf="validated && name?.errors?.['required']"
+              style="color: red"
+              >Nome é Obrigatório</mat-hint
+            >
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Email:</mat-label>
             <input matInput formControlName="email" />
+            <mat-hint
+              *ngIf="validated && email?.errors?.['required']"
+              style="color: red"
+              >Email é Obrigatório</mat-hint
+            >
+            <mat-hint
+              *ngIf="validated && email?.errors?.['email']"
+              style="color: red"
+              >Email não é válido</mat-hint
+            >
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>CPF:</mat-label>
-            <input matInput formControlName="cpf" />
+            <input matInput formControlName="cpf" mask="000.000.000-00" />
+            <mat-hint
+              *ngIf="validated && cpf?.errors?.['required']"
+              style="color: red"
+              >CPF é Obrigatório</mat-hint
+            >
+            <mat-hint
+              *ngIf="validated && cpf?.errors?.['mask']"
+              style="color: red"
+              >CPF é inválido</mat-hint
+            >
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Telefone:</mat-label>
-            <input matInput formControlName="phone" />
+            <input matInput formControlName="phone" mask="(00) 00000-0000" />
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" style="margin-bottom: 24px">
             <mat-label>Conhecimentos</mat-label>
             <mat-select formControlName="knowledgmentIds" multiple>
               <mat-option
@@ -45,6 +70,16 @@
                 >{{ topping.name }}</mat-option
               >
             </mat-select>
+            <mat-hint
+              *ngIf="validated && knowledgmentIds?.errors?.['required']"
+              style="color: red"
+              >Conhecimento é Obrigatório</mat-hint
+            >
+            <mat-hint
+              *ngIf="validated && knowledgmentIds?.errors?.['maxlength']"
+              style="color: red"
+              >Você deve escolher no máximo 3 conhecimentos</mat-hint
+            >
           </mat-form-field>
           <button (click)="createEmployee()" mat-raised-button color="primary">
             Registrar
@@ -52,5 +87,12 @@
         </div>
       </form>
     </div>
+  </div>
+  <div
+    *ngIf="registred"
+    style="display: flex; align-items: center; flex-direction: column"
+  >
+    <h4>Colaborador cadastrado com sucesso !</h4>
+    <mat-icon style="color: green">check</mat-icon>
   </div>
 </div>
