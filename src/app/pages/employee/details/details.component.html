@@ -1,1 +1,72 @@
-<p>details works!</p>
+<div style="display: grid; place-items: center; width: 100%; height: 100vh">
+  <div>
+    <div style="display: grid; place-items: center">
+      <button mat-button (click)="goToList()">
+        <mat-icon>arrow_back</mat-icon> Voltar
+      </button>
+      <h3>Detalhes do Colaborador</h3>
+      <h5 [style.color]="employee.status | statusColor">
+        {{ employee.status | status }}
+      </h5>
+      <h5><b>Validado em:</b> {{ employee.validatedAt | date : "medium" }}</h5>
+
+      <div *ngIf="employee.status == 'waiting'">
+        <button
+          mat-raised-button
+          color="primary"
+          style="margin-right: 20px"
+          (click)="approve(true)"
+        >
+          Validar
+        </button>
+        <button mat-raised-button color="warn" (click)="approve(false)">
+          Não Validar
+        </button>
+      </div>
+    </div>
+    <div>
+      <mat-list>
+        <mat-list-item>
+          <mat-icon matListItemIcon>person</mat-icon>
+          <h3 matListItemTitle>Nome</h3>
+          <p matListItemLine>
+            <span>{{ employee.name }} </span>
+          </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>email</mat-icon>
+          <h3 matListItemTitle>Email</h3>
+          <p matListItemLine>
+            <span>{{ employee.email }} </span>
+          </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>phone</mat-icon>
+          <h3 matListItemTitle>Telefone</h3>
+          <p matListItemLine>
+            <span>{{ employee.phone }} </span>
+          </p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>assignment_ind</mat-icon>
+          <h3 matListItemTitle>CPF</h3>
+          <p matListItemLine>
+            <span>{{ employee.cpf }} </span>
+          </p>
+        </mat-list-item>
+        <mat-list-item style="height: 100px">
+          <mat-icon matListItemIcon>classroom</mat-icon>
+          <h3 matListItemTitle>Conhecimentos</h3>
+          <mat-chip-set>
+            <mat-chip
+              *ngFor="let knowledgment of employee.knowledgments"
+              color="accent"
+              selected
+              >{{ knowledgment.name }}</mat-chip
+            ></mat-chip-set
+          >
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>
